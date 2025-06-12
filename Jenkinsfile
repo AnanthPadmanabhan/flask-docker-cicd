@@ -24,7 +24,7 @@ pipeline {
         stage('Test Container') {
             steps {
                 bat 'docker run --rm -d -p 5000:5000 --name test-app flask-docker-cicd'
-                bat 'timeout /t 5 /nobreak'
+                bat 'ping -n 6 127.0.0.1 > nul'
                 bat 'curl -f http://localhost:5000'
                 bat 'docker stop test-app'
             }
