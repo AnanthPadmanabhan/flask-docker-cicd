@@ -23,19 +23,19 @@ pipeline {
 
         stage('Test Container') {
             steps {
-                sh 'docker run --rm -d -p 5000:5000 --name test-app flask-docker-cicd'
-                sh 'sleep 5'
-                sh 'curl -f http://localhost:5000'
-                sh 'docker stop test-app'
+                bat 'docker run --rm -d -p 5000:5000 --name test-app flask-docker-cicd'
+                bat 'sleep 5'
+                bat 'curl -f http://localhost:5000'
+                bat 'docker stop test-app'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
-                    sh "docker tag ${IMAGE_NAME} ${DOCKERHUB_USER}/${IMAGE_NAME}:latest"
-                    sh "docker push ${DOCKERHUB_USER}/${IMAGE_NAME}:latest"
+                    bat 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                    bat "docker tag ${IMAGE_NAME} ${DOCKERHUB_USER}/${IMAGE_NAME}:latest"
+                    bat "docker push ${DOCKERHUB_USER}/${IMAGE_NAME}:latest"
                 }
             }
         }
