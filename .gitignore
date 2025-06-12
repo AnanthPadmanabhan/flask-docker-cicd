@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+*.log
+*.db
+/.idea/.gitignore
+/.idea/flask-docker-cicd.iml
+/.idea/misc.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
